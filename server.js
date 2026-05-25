@@ -13,6 +13,18 @@ mongoose.connection.on('connected', () => {
     console.log('Conectado com o MongoDB')
 });
 
+const musicasRouter = require('./routes/musicas')
+const filmesRouter = require('./routes/filmes')
+const jogosRouter = require('./routes/jogos')
+const livrosRouter = require('./routes/livros')
+const seriesRouter = require('./routes/series')
+
+app.use('/musicas', musicasRouter);
+app.use('/filmes', filmesRouter);
+app.use('/jogos', jogosRouter);
+app.use('/livros', livrosRouter);
+app.use('/series', seriesRouter);
+
 app.listen(3000, () => {
     console.log('Servidor rodando na porta 3000')
 });
