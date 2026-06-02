@@ -24,6 +24,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const serie = await Series.findById(req.params.id);
+        if (!serie) {
+            return res.status(404).json({
+                message: "Série não encontrada",
+            });
+        }
+        res.status(200).json(serie);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+});
+
 router.post('/', async (req, res) => {
     try{
     const novaSerie = new Series(req.body);

@@ -23,6 +23,22 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/:id', async (req, res) => {
+  try {
+    const musica = await Musica.findById(req.params.id);
+    if (!musica) {
+      return res.status(404).json({
+        message: "Musica não encontrada",
+      });
+    }
+    res.status(200).json(musica);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
+
 router.post('/', async (req, res) => {
 
   try {

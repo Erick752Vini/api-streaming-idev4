@@ -22,6 +22,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const jogo = await Jogo.findById(req.params.id);
+        if (!jogo) {
+            return res.status(404).json({
+                message: "Jogo não encontrado",
+            });
+        }
+        res.status(200).json(jogo);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+})
+
 router.post('/', async (req, res) => {
     try {
         const novoJogo = new Jogo(req.body);

@@ -23,6 +23,22 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const filme = await Filme.findById(req.params.id);
+        if (!filme) {
+            return res.status(404).json({
+                message: "Filme não encontrado",
+            });
+        }
+        res.status(200).json(filme);
+    } catch (error) {
+        res.status(500).json({
+            message: error.message,
+        });
+    }
+});
+
 router.post('/', async (req, res) => {
     try {
         const novoFilme = new Filme(req.body);
