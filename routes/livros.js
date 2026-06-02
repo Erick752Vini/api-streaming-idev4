@@ -55,4 +55,20 @@ router.put('/', async (req, res) => {
     }
 });
 
+router.delete(':id', async (req, res) => {
+    try{
+        const livroExcluido = await Livro.findByIdAndDelete(req.params.id);
+        if(!livroExcluido) {
+            return res.status(404).json({
+                message: "Livro não encontrado",
+            });
+        }
+        res.status(200).json({ message: "Livro excluído com sucesso" });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message,
+        });
+    }
+});
+
 module.exports = router;

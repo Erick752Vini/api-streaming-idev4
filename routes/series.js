@@ -56,4 +56,22 @@ router.put('/', async (req, res) => {
     }
 });
 
+router.delete(':id', async (req, res) => {
+    try {
+        const serieDeletada = await Series.findByIdAndDelete(req.params.id);
+        if (!serieDeletada) {
+            return res.status(404).json({
+                message: "Série não encontrada",
+            });
+        }
+        res.status(200).json({
+            message: "Série deletada com sucesso",
+        });
+    } catch (error) {
+        res.status(400).json({
+            message: error.message,
+        });
+    }
+})
+
 module.exports = router;

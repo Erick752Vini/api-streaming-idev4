@@ -54,4 +54,20 @@ router.put('/', async (req, res) => {
     }
 });
 
+router.delete(':id', async (req, res) => {
+    try{
+        const jogoExcluido = await Jogo.findByIdAndDelete(req.params.id);
+        if(!jogoExcluido) {
+            return res.status(404).json({
+                message: "Jogo não encontrado",
+            });
+        }
+        res.status(200).json(jogoExcluido);
+    } catch (error) {
+        res.status(400).json({
+            message: error.message,
+        });
+    }
+});
+
 module.exports = router;
